@@ -1,12 +1,12 @@
-# from concurrent.futures import ProcessPoolExecutor
-# from functools import partial
+from concurrent.futures import ProcessPoolExecutor
+from functools import partial
 import numpy as np
 import os
 from utils import audio
 
 
-# def build_from_path(in_dir, out_dir, num_workers=1, tqdm=lambda x: x):
-def build_from_path(in_dir, out_dir):
+def build_from_path(in_dir, out_dir, num_workers=16, tqdm=lambda x: x):
+# def build_from_path(in_dir, out_dir):
     '''Preprocesses the LJ Speech dataset from a given input path into a given output directory.
 
       Args:
@@ -23,8 +23,8 @@ def build_from_path(in_dir, out_dir):
     # can omit it and just call _process_utterance on each input if you want.
 
     # executor = ProcessPoolExecutor(max_workers=num_workers)
-    # futures = []
-    list_meta = []
+    futures = []
+    # list_meta = []
     index = 1
     with open(os.path.join(in_dir, 'metadata.csv'), encoding='utf-8') as f:
         for line in f:
@@ -32,18 +32,18 @@ def build_from_path(in_dir, out_dir):
             # print(parts[0])
             wav_path = os.path.join(in_dir, 'wavs', '%s.wav' % parts[0])
             text = parts[2]
-            # futures.append(executor.submit(
-            #     partial(_process_utterance, out_dir, index, wav_path, text)))
-            temp_tuple = _process_utterance(out_dir, index, wav_path, text)
+            futures.append(executor.submit(
+                partial(_process_utterance, out_dir, index, wav_path, text)))
+            # temp_tuple = _process_utterance(out_dir, index, wav_path, text)
             # print(temp_tuple[3])
-            list_meta.append(temp_tuple)
-            if index % 1000 == 0:
+            # list_meta.append(temp_tuple)
+            if index % 100 == 0:
                 print("Done %d" % index)
             index = index + 1
             # print(index)
 
-    # return [future.result() for future in tqdm(futures)]
-    return list_meta
+    return [future.result() for future in tqdm(futures)]
+    # return list_meta
 
 
 def _process_utterance(out_dir, index, wav_path, text):
