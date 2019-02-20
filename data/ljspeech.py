@@ -22,7 +22,7 @@ def build_from_path(in_dir, out_dir, num_workers=16, tqdm=lambda x: x):
     # We use ProcessPoolExecutor to parallelize across processes. This is just an optimization and you
     # can omit it and just call _process_utterance on each input if you want.
 
-    # executor = ProcessPoolExecutor(max_workers=num_workers)
+    executor = ProcessPoolExecutor(max_workers=num_workers)
     futures = []
     # list_meta = []
     index = 1
