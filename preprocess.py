@@ -1,6 +1,6 @@
 # import argparse
 import os
-# from multiprocessing import cpu_count
+from multiprocessing import cpu_count
 from tqdm import tqdm
 # from datasets import blizzard, ljspeech
 # from datasets import ljspeech
@@ -26,9 +26,9 @@ def preprocess_ljspeech(filename):
     out_dir = "dataset"
     if not os.path.exists(out_dir):
         os.makedirs(out_dir, exist_ok=True)
-    # metadata = ljspeech.build_from_path(
-    #     in_dir, out_dir, args.num_workers, tqdm=tqdm)
-    metadata = ljspeech.build_from_path(in_dir, out_dir)
+    metadata = ljspeech.build_from_path(
+        in_dir, out_dir, cpu_count(), tqdm=tqdm)
+    # metadata = ljspeech.build_from_path(in_dir, out_dir)
     write_metadata(metadata, out_dir)
 
 
