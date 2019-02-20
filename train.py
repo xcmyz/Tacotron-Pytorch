@@ -55,7 +55,7 @@ def main(args):
 
     total_step = hp.epochs * len(training_loader)
     # print(total_step)
-    Loss = []
+    # Loss = []
     Time = np.array([])
     Start = time.clock()
     for epoch in range(hp.epochs):
@@ -123,7 +123,7 @@ def main(args):
             linear_loss = torch.mean(linear_loss)
             loss = mel_loss + hp.loss_weight * linear_loss
             loss = loss.to(device)
-            Loss.append(loss)
+            # Loss.append(loss)
             # et = time.clock()
             # print(et - st)
             # print(loss)
@@ -210,15 +210,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset_path', type=str,
                         help='dataset path', default='dataset')
-    # parser.add_argument('--restore_step', type=int,
-    #                     help='Global step to restore checkpoint', default=0)
-    # parser.add_argument('--batch_size', type=int,
-    #                     help='Batch size', default=hp.batch_size)
-
-    # Test
-    parser.add_argument('--batch_size', type=int, help='Batch size', default=2)
     parser.add_argument('--restore_step', type=int,
                         help='Global step to restore checkpoint', default=0)
-
+    parser.add_argument('--batch_size', type=int,
+                        help='Batch size', default=hp.batch_size)
     args = parser.parse_args()
     main(args)
