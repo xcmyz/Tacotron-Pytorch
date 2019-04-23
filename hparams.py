@@ -21,15 +21,15 @@ max_iters = 200
 
 # Training:
 outputs_per_step = 5
-batch_size = 32
+batch_size = 2
 epochs = 10000
 lr = 0.001
 loss_weight = 0.5
 decay_step = [500000, 1000000, 2000000]
 # decay_step = [20, 60]
-save_step = 2000
+save_step = 300
 # save_step = 20
-log_step = 200
+log_step = 5
 # log_step = 20
 clear_Time = 100
 checkpoint_path = './model_new'
