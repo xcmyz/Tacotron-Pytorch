@@ -144,10 +144,19 @@ def main(args):
                 # print("linear loss: %.4f" % linear_loss.data[0])
                 # print("mel loss: %.4f" % mel_loss.data[0])
                 # print("total loss: %.4f" % loss.data[0])
-                print("Epoch [{}/{}], Step [{}/{}], Linear Loss: {:.4f}, Mel Loss: {:.4f}, Total Loss: {:.4f}.".format(
-                    epoch+1, hp.epochs, current_step, total_step, linear_loss.item(), mel_loss.item(), loss.item()))
-                print("Time Used: {:.3f}s, Estimated Time Remaining: {:.3f}s.".format(
-                    (Now-Start), (total_step-current_step)*np.mean(Time)))
+
+                str_1 = "Epoch [{}/{}], Step [{}/{}], Linear Loss: {:.4f}, Mel Loss: {:.4f}, Total Loss: {:.4f}.".format(
+                    epoch+1, hp.epochs, current_step, total_step, linear_loss.item(), mel_loss.item(), loss.item())
+                str_2 = "Time Used: {:.3f}s, Estimated Time Remaining: {:.3f}s.".format(
+                    (Now-Start), (total_step-current_step)*np.mean(Time))
+
+                print(str_1)
+                print(str_2)
+
+                with open("logger.txt", "a")as f_logger:
+                    f_logger.write(str_1 + "\n")
+                    f_logger.write(str_2 + "\n")
+                    f_logger.write("\n")
 
             # print(current_step)
             if current_step % hp.save_step == 0:
