@@ -21,7 +21,7 @@ max_iters = 200
 
 # Training:
 outputs_per_step = 5
-batch_size = 2
+batch_size = 32
 epochs = 10000
 lr = 0.001
 loss_weight = 0.5
